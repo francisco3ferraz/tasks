@@ -32,13 +32,13 @@ func ReadJSON(filepath string) error {
 func WriteJSON(filepath string) error {
 	tasks := tasks.GetTasks()
 
-	file, err := os.OpenFile(filepath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	f, err := os.OpenFile(filepath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 	if err != nil {
 		return fmt.Errorf("error creating file: %v", err)
 	}
-	defer file.Close()
+	defer f.Close()
 
-	w := json.NewEncoder(file)
+	w := json.NewEncoder(f)
 	w.SetIndent("", "  ")
 
 	if err := w.Encode(tasks); err != nil {
